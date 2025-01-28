@@ -1,4 +1,4 @@
-package com.app.drivein.bottomNavigationBar
+package org.example.demoproject.UI
 
 import androidx.compose.animation.Crossfade
 import androidx.compose.animation.core.animateFloatAsState
@@ -23,7 +23,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.app.drivein.utils.Constants
-import org.example.demoproject.bottomNavigationBar.HomeScreen.HomeScreen
+import org.example.demoproject.HomeScreen.HomeScreen
 import org.jetbrains.compose.resources.painterResource
 
 class BottomNavigationView {

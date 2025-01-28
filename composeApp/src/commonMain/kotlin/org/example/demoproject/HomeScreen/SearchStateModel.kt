@@ -1,4 +1,4 @@
-package org.example.demoproject.bottomNavigationBar.HomeScreen
+package org.example.demoproject.HomeScreen
 
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow

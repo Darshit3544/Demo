@@ -1,4 +1,4 @@
-package org.example.demoproject.bottomNavigationBar.HomeScreen
+package org.example.demoproject.HomeScreen
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image

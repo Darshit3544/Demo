@@ -1,4 +1,4 @@
-package com.app.drivein.bottomNavigationBar
+package org.example.demoproject.UI
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -7,15 +7,15 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 
-class MyAccountScreen {
+class ActivityScreen {
     @Composable
-    fun ProfileScreen() {
+    fun SearchScreen() {
         // Column Composable,
         Column(
             modifier = Modifier
@@ -27,12 +27,12 @@ class MyAccountScreen {
         ) {
             // Icon Composable
             Icon(
-                imageVector = Icons.Default.Person,
-                contentDescription = "Profile",
+                imageVector = Icons.Default.Search,
+                contentDescription = "search",
                 tint = Color(0xFF0F9D58)
             )
             // Text to Display the current Screen
-            Text(text = "Profile", color = Color.Black)
+            Text(text = "Search", color = Color.Black)
         }
     }
 }
