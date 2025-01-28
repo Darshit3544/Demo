@@ -2,8 +2,11 @@ package org.example.demoproject
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Button
 import androidx.compose.material.MaterialTheme
@@ -39,13 +42,11 @@ fun GreetingFun(name: String, modifier: Modifier = Modifier) {
     val navController = rememberNavController()
     val bottomNavigationView = BottomNavigationView()
 
-    Surface(
-        modifier = modifier.padding(vertical = 4.dp, horizontal = 8.dp)
-    ) {
+    Surface{
         Scaffold(
             // Bottom navigation
             bottomBar = {
-                bottomNavigationView.BottomNavigationBar(navController = navController)
+                    bottomNavigationView.BottomNavigationBar(navController = navController)
             }, content = { padding ->
                 // Navhost: where screens are placed
                 bottomNavigationView.NavHostContainer(navController = navController, padding = padding)
