@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -19,8 +20,12 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.Button
+import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Card
 import androidx.compose.material.Text
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -37,6 +42,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
@@ -45,7 +51,6 @@ import androidx.compose.ui.unit.sp
 import com.app.drivein.utils.Constants
 import demoproject.composeapp.generated.resources.Res
 import demoproject.composeapp.generated.resources.*
-import demoproject.composeapp.generated.resources.search
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 
@@ -53,22 +58,51 @@ class HomeScreen {
     @Composable
     fun HomeScreen() {
         val state = remember { SearchStateModel() }
-
+        val scrollState = rememberScrollState()
         // Column Composable,
-        Column(
+        Column (
             modifier = Modifier
-                .fillMaxSize(),
-
-
+                .fillMaxWidth()
+        ) {
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .verticalScroll(scrollState)
+                    .weight(1f, fill = false),
             ) {
-            WelcomeBanner()
-            launchingBanner()
-            selectCarType(Constants.carTypeList)
-            SearchBar(state = state,
-                onTextChanged =
-                { query ->
-                    println("User typed: $query")
-                })
+                WelcomeBanner()
+                launchingBanner()
+                selectCarType(Constants.carTypeList)
+                SearchBar(state = state,
+                    onTextChanged =
+                    { query ->
+                        println("User typed: $query")
+                    })
+                PromoCard()
+                mapView()
+                launchingBanner()
+            }
+        }
+    }
+
+    @Composable
+    fun mapView() {
+        Column {
+            Text(
+                text = "Around You",
+                fontSize = 25.sp,
+                color = Color.Black,
+                modifier = Modifier.padding(start = 10.dp)
+            )
+
+            Image(
+                painter = painterResource(Res.drawable.map), // Replace with your image
+                contentDescription = "Map Image",
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 10.dp),
+                contentScale = ContentScale.Crop
+            )
         }
     }
 
@@ -122,7 +156,6 @@ class HomeScreen {
         )
     }
 
-
     @Composable
     fun selectCarType(items: List<CarTypeModel>) {
         Row(
@@ -134,6 +167,53 @@ class HomeScreen {
         ) {
             items.forEach { item ->
                 ScrollingItemView(item)
+            }
+        }
+    }
+
+    @Composable
+    fun PromoCard() {
+        Card(
+            modifier = Modifier
+                .fillMaxWidth()
+                .wrapContentSize()
+                .padding(10.dp),
+            shape = RoundedCornerShape(10.dp),
+            backgroundColor = Color(0xFF665FF0)
+        ) {
+            Row {
+                Column(
+                    modifier = Modifier
+                        .padding(10.dp)
+                        .weight(0.7f),
+
+                    ) {
+                    Text(
+                        text = "Add up to 5 Stops to your ride.",
+                        fontSize = 20.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = Color.White,
+                        modifier = Modifier.padding(10.dp)
+                    )
+                    Text(
+                        text = "Learn more",
+                        fontSize = 15.sp,
+                        color = Color.White,
+                        modifier = Modifier.padding(start = 10.dp)
+                    )
+
+                }
+
+                //Spacer(modifier = Modifier.height(12.dp))
+
+                Image(
+                    painter = painterResource(Res.drawable.banner2), // Replace with your image
+                    contentDescription = "Navigation Image",
+                    modifier = Modifier
+                        .height(120.dp)
+                        .clip(RoundedCornerShape(8.dp))
+                        .weight(0.3f)
+                )
             }
         }
     }
