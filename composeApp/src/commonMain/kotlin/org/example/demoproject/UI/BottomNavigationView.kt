@@ -23,7 +23,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.app.drivein.utils.Constants
-import org.example.demoproject.HomeScreen.HomeScreen
+import org.example.demoproject.UI.HomeScreen.HomeScreen
 import org.jetbrains.compose.resources.painterResource
 
 class BottomNavigationView {

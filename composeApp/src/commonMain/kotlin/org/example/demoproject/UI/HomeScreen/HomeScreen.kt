@@ -1,4 +1,4 @@
-package org.example.demoproject.HomeScreen
+package org.example.demoproject.UI.HomeScreen
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
@@ -107,7 +107,7 @@ class HomeScreen {
     }
 
     @Composable
-    fun SearchBar(state: SearchStateModel, onTextChanged: (String) -> Unit , onClick: (String) -> Unit) {
+    fun SearchBar(state: SearchStateModel, onTextChanged: (String) -> Unit, onClick: (String) -> Unit) {
         var text by remember { mutableStateOf("") }
 
         LaunchedEffect(state.query) {

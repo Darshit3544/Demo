@@ -1,4 +1,4 @@
-package org.example.demoproject.HomeScreen
+package org.example.demoproject.UI.HomeScreen
 
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow

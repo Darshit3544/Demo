@@ -1,4 +1,4 @@
-package org.example.demoproject.HomeScreen
+package org.example.demoproject.UI.HomeScreen
 
 import org.jetbrains.compose.resources.DrawableResource
 

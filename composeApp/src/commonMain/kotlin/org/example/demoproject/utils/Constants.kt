@@ -5,7 +5,7 @@ import androidx.compose.material.icons.filled.*
 import com.app.drivein.bottomNavigationBar.models.BottomNavItem
 import demoproject.composeapp.generated.resources.Res
 import demoproject.composeapp.generated.resources.*
-import org.example.demoproject.HomeScreen.CarTypeModel
+import org.example.demoproject.UI.HomeScreen.CarTypeModel
 
 object Constants {
     val BottomNavItems = listOf(
