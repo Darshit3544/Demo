@@ -120,6 +120,10 @@ class BottomNavigationView {
                 composable("WhereToScreen") {
                     whereToLayout(navController = navController)
                 }
+
+                composable("ConfirmRide") {
+                    ConfirmRide(navController = navController)
+                }
             })
 
     }

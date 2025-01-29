@@ -10,13 +10,11 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Divider
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.AddCircle
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material.icons.filled.Phone
-import androidx.compose.material.icons.filled.Place
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -43,27 +41,48 @@ import org.jetbrains.compose.resources.painterResource
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun whereToLayout(navController: NavController) {
-    LocationScreen(navController)
+    val scrollState = rememberScrollState()
+
+    Column (
+        modifier = Modifier.padding(8.dp).fillMaxSize()
+            .background(Color.White)
+            .verticalScroll(scrollState)
+    ) {
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier.padding(bottom = 10.dp)
+        ) {
+            IconButton(onClick = { navController.navigateUp() }) {
+                Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "Back")
+            }
+
+            androidx.compose.material.Text(
+                text = "Select Location",
+                fontSize = 25.sp,
+                color = Color.Gray,
+                fontWeight = FontWeight.Bold
+            )
+        }
+        LocationScreen(navController)
+    }
 }
 
 @Composable
 fun LocationScreen(navController: NavController) {
     val destination = remember { mutableStateOf("") }
     val currentLocation = remember { mutableStateOf("") }
-    val scrollState = rememberScrollState()
+
 
     Column(
         modifier = Modifier
-            .fillMaxSize()
-            .background(Color.White)
-            .verticalScroll(scrollState)
-            .padding(16.dp)
+            .padding(start = 8.dp, end = 8.dp)
     ) {
+
         // Back Button and Current Location Input
         Row {
-            IconButton(onClick = { navController.navigateUp() }) {
+            /*IconButton(onClick = { navController.navigateUp() }) {
                 Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "Back")
-            }
+            }*/
 
             Column {
 
@@ -147,21 +166,23 @@ fun LocationScreen(navController: NavController) {
             "2.3km",
             "1671 North Avenue, Tucson, L9D6J3",
             Icons.Default.Phone,
-            true
+            true,navController
         )
         SavedPlaceItem(
             "Home",
             "9.6km",
             "1234 Desert Road, Hamilton, P7B2Y8",
             Icons.Default.Home,
-            true
+            true,
+            navController
         )
         SavedPlaceItem(
             "Add New",
             "",
             "Save your favorite location",
             Icons.Default.AddCircle,
-            false
+            false,
+            navController
         )
 
         // Frequent Destinations
@@ -178,12 +199,16 @@ fun SavedPlaceItem(
     kms: String,
     address: String,
     icon: ImageVector,
-    isEdit: Boolean
+    isEdit: Boolean,
+    navController: NavController
 ) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
             .padding(8.dp)
+            .clickable {
+                navController.navigate("ConfirmRide")
+            }
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically

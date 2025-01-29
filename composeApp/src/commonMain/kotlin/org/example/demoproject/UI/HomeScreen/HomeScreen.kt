@@ -67,18 +67,25 @@ class HomeScreen {
             ) {
                 WelcomeBanner()
                 launchingBanner()
-                selectCarType(Constants.carTypeList)
-                SearchBar(state = state,
-                    onTextChanged =
-                    { query ->
-                        println("User typed: $query")
-                    },
-                    onClick = {
+                selectCarType(Constants.carTypeList,navController)
+                Column (
+                    modifier = Modifier.clickable {
                         navController.navigate("WhereToScreen")
-                    })
+                    }
+                ){
+                    SearchBar(state = state,
+                        onTextChanged =
+                        { query ->
+                            navController.navigate("WhereToScreen")
+                        },
+                        onClick = {
+                            navController.navigate("WhereToScreen")
+                        },navController
+                    )
+                }
                 PromoCard()
                 mapView(navController)
-                launchingBanner()
+
             }
         }
     }
@@ -107,7 +114,12 @@ class HomeScreen {
     }
 
     @Composable
-    fun SearchBar(state: SearchStateModel, onTextChanged: (String) -> Unit, onClick: (String) -> Unit) {
+    fun SearchBar(
+        state: SearchStateModel,
+        onTextChanged: (String) -> Unit,
+        onClick: (String) -> Unit,
+        navController: NavHostController
+    ) {
         var text by remember { mutableStateOf("") }
 
         LaunchedEffect(state.query) {
@@ -125,7 +137,9 @@ class HomeScreen {
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(16.dp)
-                .border(BorderStroke(2.dp, Color.LightGray), RoundedCornerShape(10.dp)),
+                .border(BorderStroke(2.dp, Color.LightGray), RoundedCornerShape(10.dp)).clickable {
+                    navController.navigate("WhereToScreen")
+                },
             leadingIcon = {
                 Icon(
                     painter = painterResource(Res.drawable.search),
@@ -157,7 +171,7 @@ class HomeScreen {
     }
 
     @Composable
-    fun selectCarType(items: List<CarTypeModel>) {
+    fun selectCarType(items: List<CarTypeModel>, navController: NavHostController) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -166,7 +180,7 @@ class HomeScreen {
             horizontalArrangement = Arrangement.spacedBy(5.dp)
         ) {
             items.forEach { item ->
-                ScrollingItemView(item)
+                ScrollingItemView(item,navController)
             }
         }
     }
@@ -219,10 +233,12 @@ class HomeScreen {
     }
 
     @Composable
-    fun ScrollingItemView(item: CarTypeModel) {
+    fun ScrollingItemView(item: CarTypeModel, navController: NavHostController) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier.width(75.dp)
+            modifier = Modifier.width(75.dp).clickable {
+                navController.navigate("WhereToScreen")
+            }
         ) {
             // Use Image to display the icon, and Text to display the text
             Image(
