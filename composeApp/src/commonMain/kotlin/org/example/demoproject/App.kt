@@ -11,6 +11,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import org.example.demoproject.UI.BottomNavigationView
 import org.jetbrains.compose.ui.tooling.preview.Preview
@@ -31,11 +32,15 @@ fun GreetingFun(name: String, modifier: Modifier = Modifier) {
     val extraPadding = if (expanded.value) 48.dp else 0.dp
     val navController = rememberNavController()
     val bottomNavigationView = BottomNavigationView()
+    val currentDestination = navController.currentBackStackEntryAsState().value?.destination?.route
 
+    val hideBottomBarScreens = listOf("WhereToScreen") // Screens where you want to hide the navigation
+    val shouldShowBottomBar = currentDestination !in hideBottomBarScreens
     Surface{
         Scaffold(
             // Bottom navigation
             bottomBar = {
+                if (shouldShowBottomBar)
                     bottomNavigationView.BottomNavigationBar(navController = navController)
             }, content = { padding ->
                 // Navhost: where screens are placed
