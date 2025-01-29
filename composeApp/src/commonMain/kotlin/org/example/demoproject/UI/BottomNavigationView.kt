@@ -103,7 +103,7 @@ class BottomNavigationView {
 
                 // route : Home
                 composable("home") {
-                    HomeScreen().HomeScreen()
+                    HomeScreen().HomeScreen(navController)
                 }
 
                 // route : search
@@ -114,6 +114,11 @@ class BottomNavigationView {
                 // route : profile
                 composable("account") {
                     MyAccountScreen().ProfileScreen()
+                }
+
+                // route : whereTo
+                composable("WhereToScreen") {
+                    whereToLayout(navController = navController)
                 }
             })
 

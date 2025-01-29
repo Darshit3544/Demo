@@ -3,6 +3,7 @@ package org.example.demoproject.HomeScreen
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -11,21 +12,16 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.Button
-import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Card
 import androidx.compose.material.Text
-import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -43,20 +39,19 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 import com.app.drivein.utils.Constants
 import demoproject.composeapp.generated.resources.Res
 import demoproject.composeapp.generated.resources.*
 import org.jetbrains.compose.resources.painterResource
-import org.jetbrains.compose.resources.stringResource
 
 class HomeScreen {
     @Composable
-    fun HomeScreen() {
+    fun HomeScreen(navController: NavHostController) {
         val state = remember { SearchStateModel() }
         val scrollState = rememberScrollState()
         // Column Composable,
@@ -77,22 +72,27 @@ class HomeScreen {
                     onTextChanged =
                     { query ->
                         println("User typed: $query")
+                    },
+                    onClick = {
+                        navController.navigate("WhereToScreen")
                     })
                 PromoCard()
-                mapView()
+                mapView(navController)
                 launchingBanner()
             }
         }
     }
 
     @Composable
-    fun mapView() {
+    fun mapView(navController: NavHostController) {
         Column {
             Text(
                 text = "Around You",
                 fontSize = 25.sp,
                 color = Color.Black,
-                modifier = Modifier.padding(start = 10.dp)
+                modifier = Modifier.padding(start = 10.dp).clickable {
+                    navController.navigate("WhereToScreen")
+                }
             )
 
             Image(
@@ -107,7 +107,7 @@ class HomeScreen {
     }
 
     @Composable
-    fun SearchBar(state: SearchStateModel, onTextChanged: (String) -> Unit) {
+    fun SearchBar(state: SearchStateModel, onTextChanged: (String) -> Unit , onClick: (String) -> Unit) {
         var text by remember { mutableStateOf("") }
 
         LaunchedEffect(state.query) {
