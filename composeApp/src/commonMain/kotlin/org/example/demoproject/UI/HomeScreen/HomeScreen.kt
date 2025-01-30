@@ -39,6 +39,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
@@ -55,7 +56,7 @@ class HomeScreen {
         val state = remember { SearchStateModel() }
         val scrollState = rememberScrollState()
         // Column Composable,
-        Column (
+        Column(
             modifier = Modifier
                 .fillMaxWidth()
         ) {
@@ -67,24 +68,26 @@ class HomeScreen {
             ) {
                 WelcomeBanner()
                 launchingBanner()
-                selectCarType(Constants.carTypeList,navController)
-                Column (
+                selectCarType(Constants.carTypeList, navController)
+                Column(
                     modifier = Modifier.clickable {
                         navController.navigate("WhereToScreen")
                     }
-                ){
-                    SearchBar(state = state,
+                ) {
+                    SearchBar(
+                        state = state,
                         onTextChanged =
                         { query ->
                             navController.navigate("WhereToScreen")
                         },
                         onClick = {
                             navController.navigate("WhereToScreen")
-                        },navController
+                        }, navController
                     )
                 }
                 PromoCard()
                 mapView(navController)
+                SafetyBanner()
 
             }
         }
@@ -107,7 +110,7 @@ class HomeScreen {
                 contentDescription = "Map Image",
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(top = 10.dp),
+                    .padding(10.dp),
                 contentScale = ContentScale.Crop
             )
         }
@@ -180,7 +183,7 @@ class HomeScreen {
             horizontalArrangement = Arrangement.spacedBy(5.dp)
         ) {
             items.forEach { item ->
-                ScrollingItemView(item,navController)
+                ScrollingItemView(item, navController)
             }
         }
     }
@@ -311,5 +314,67 @@ class HomeScreen {
                 )
             }
         }
+    }
+
+    @Composable
+    fun SafetyBanner() {
+        Column {
+            Text(
+                text = "Ensure your safety",
+                fontSize = 20.sp,
+                color = Color.Black,
+                fontWeight = FontWeight.Bold,
+                modifier = Modifier.padding(start = 10.dp)
+            )
+
+            Card(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .wrapContentSize()
+                    .padding(10.dp)
+                    .border(
+                        BorderStroke(
+                            1.dp, Color.Gray
+                        ),
+                        shape = RoundedCornerShape(10.dp)
+                    ),
+                backgroundColor = Color.White
+            ) {
+                Row (verticalAlignment = Alignment.CenterVertically){
+                    Column(
+                        modifier = Modifier
+                            .padding(10.dp)
+                            .weight(0.7f)
+                    ) {
+                        Text(
+                            text = "Safety center",
+                            fontSize = 20.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = Color.Black,
+                            modifier = Modifier.padding(start = 10.dp)
+                        )
+                        Text(
+                            text = "Driver has a dashcam to record journeys to enhanced safety",
+                            fontSize = 12.sp,
+                            color = Color.Gray,
+                            modifier = Modifier.padding(start = 10.dp)
+                        )
+                    }
+
+                    //Spacer(modifier = Modifier.height(12.dp))
+
+                    Image(
+                        painter = painterResource(Res.drawable.safety_banner), // Replace with your image
+                        contentDescription = "Safety Banner",
+                        modifier = Modifier
+                            .height(120.dp)
+                            .clip(RoundedCornerShape(8.dp))
+                            .weight(0.3f)
+                    )
+                }
+            }
+        }
+
+
     }
 }
