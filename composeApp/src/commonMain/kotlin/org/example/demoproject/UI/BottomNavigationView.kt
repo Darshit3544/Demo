@@ -113,7 +113,7 @@ class BottomNavigationView {
 
                 // route : profile
                 composable("account") {
-                    MyAccountScreen().ProfileScreen()
+                    MyAccountScreen().ProfileScreen(navController = navController)
                 }
 
                 // route : whereTo
@@ -123,6 +123,10 @@ class BottomNavigationView {
 
                 composable("ConfirmRide") {
                     ConfirmRide(navController = navController)
+                }
+
+                composable("ProfileScreen") {
+                    ProfileScreen().profileScreen(navController = navController)
                 }
             })
 

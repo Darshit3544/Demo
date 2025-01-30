@@ -2,9 +2,9 @@ package org.example.demoproject.UI
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -16,35 +16,27 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
-import androidx.compose.material.Icon
 import androidx.compose.material.Text
-import androidx.compose.material.TextField
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Person
-import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 import demoproject.composeapp.generated.resources.Res
 import demoproject.composeapp.generated.resources.car
 import demoproject.composeapp.generated.resources.facebook
 import demoproject.composeapp.generated.resources.google
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
-import org.jetbrains.compose.ui.tooling.preview.Preview
 
 class MyAccountScreen {
     @Composable
-    fun ProfileScreen() {
+    fun ProfileScreen(navController: NavHostController) {
         // Column Composable,
         Column(
             modifier = Modifier
@@ -53,12 +45,12 @@ class MyAccountScreen {
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            SignupScreen()
+            SignupScreen(navController)
         }
     }
 
     @Composable
-    fun SignupScreen() {
+    fun SignupScreen(navController: NavHostController) {
         val phoneNumber = remember { mutableStateOf("") }
 
         Column(
@@ -85,7 +77,9 @@ class MyAccountScreen {
 
             Button(
                 onClick = { /* Handle Continue */ },
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier.fillMaxWidth().clickable {
+                    navController.navigate("ProfileScreen")
+                },
                 colors = ButtonDefaults.buttonColors(
                     backgroundColor = Color(0xFF665FF0) // Set background color to blue
                 )
@@ -94,7 +88,9 @@ class MyAccountScreen {
                     "Continue",
                     color = Color.White,
                     fontSize = 18.sp,
-                    modifier = Modifier.background(Color(0xFF665FF0))
+                    modifier = Modifier.background(Color(0xFF665FF0)).clickable {
+                        navController.navigate("ProfileScreen")
+                    }
                 )
             }
 
