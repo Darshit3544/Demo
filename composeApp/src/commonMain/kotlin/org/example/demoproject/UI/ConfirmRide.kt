@@ -51,7 +51,7 @@ fun ConfirmRide(navController: NavHostController) {
     ) {
         mapView(navController)
 
-        RideOptionScreen()
+        RideOptionScreen(navController)
     }
 }
 
@@ -63,7 +63,7 @@ data class RideOption(
 )
 
 @Composable
-fun RideOptionScreen() {
+fun RideOptionScreen(navController: NavHostController) {
     val rideOptions = listOf(
         RideOption("Standard 4-seat", "4:23 PM - 6 min away", 12.32, Res.drawable.hatchback),
         RideOption("Standard 5-seat", "4:33 PM - 16 min away", 20.70, Res.drawable.sedan),
@@ -87,7 +87,9 @@ fun RideOptionScreen() {
 
         Spacer(modifier = Modifier.height(20.dp))
         Button(
-            onClick = { /* Handle booking action */ },
+            onClick = { navController.navigate("home"){
+                popUpTo("home"){inclusive = true}
+            } },
             modifier = Modifier.fillMaxWidth().height(50.dp),
             shape = RoundedCornerShape(8.dp),
             colors = ButtonDefaults.buttonColors(
