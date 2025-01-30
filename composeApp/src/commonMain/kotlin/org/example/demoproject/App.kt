@@ -34,7 +34,7 @@ fun GreetingFun(name: String, modifier: Modifier = Modifier) {
     val bottomNavigationView = BottomNavigationView()
     val currentDestination = navController.currentBackStackEntryAsState().value?.destination?.route
 
-    val hideBottomBarScreens = listOf("WhereToScreen","ConfirmRide","ProfileScreen") // Screens where you want to hide the navigation
+    val hideBottomBarScreens = listOf("WhereToScreen","ConfirmRide","ProfileScreen","RideConfirmation") // Screens where you want to hide the navigation
     val shouldShowBottomBar = currentDestination !in hideBottomBarScreens
     Surface{
         Scaffold(

@@ -128,6 +128,10 @@ class BottomNavigationView {
                 composable("ProfileScreen") {
                     ProfileScreen().profileScreen(navController = navController)
                 }
+
+                composable("RideConfirmation") {
+                    RideConfirmationScreen().DriverArrivalScreen(navController = navController)
+                }
             })
 
     }

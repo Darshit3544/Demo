@@ -3,6 +3,7 @@ package org.example.demoproject.UI
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -12,7 +13,9 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Text
@@ -51,7 +54,38 @@ fun ConfirmRide(navController: NavHostController) {
     ) {
         mapView(navController)
 
-        RideOptionScreen(navController)
+        val scrollState = rememberScrollState()
+
+        Column(modifier = Modifier.weight(1f).verticalScroll(scrollState)) {
+            RideOptionScreen(navController)
+        }
+
+        Column(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Bottom,
+        ) {
+            Spacer(modifier = Modifier.height(20.dp))
+            Button(
+                onClick = { /*navController.navigate("home"){
+                popUpTo("home"){inclusive = true}
+            }*/
+                    navController.navigate("RideConfirmation")
+                },
+                modifier = Modifier.fillMaxWidth().height(50.dp),
+                shape = RoundedCornerShape(8.dp),
+                colors = ButtonDefaults.buttonColors(
+                    backgroundColor = Color(0xFF665FF0) // Set background color to blue
+                )
+            ) {
+                Text(
+                    "Book Now",
+                    fontSize = 18.sp,
+                    color = Color.White,
+                    modifier = Modifier.background(Color(0xFF665FF0))
+                )
+            }
+        }
     }
 }
 
@@ -69,6 +103,7 @@ fun RideOptionScreen(navController: NavHostController) {
         RideOption("Standard 5-seat", "4:33 PM - 16 min away", 20.70, Res.drawable.sedan),
         RideOption("Premium 4-seat", "4:29 PM - 12 min away", 22.12, Res.drawable.cabriolet),
         RideOption("SUV 6-seat", "4:37 PM - 20 min away", 18.50, Res.drawable.suv),
+        RideOption("SUV 5-seat", "4:27 PM - 10 min away", 21.50, Res.drawable.suv),
         RideOption("MiniVan 8 - seat", "4:19 PM - 2 min away", 28.90, Res.drawable.minivan)
     )
     val selectedOption = remember { mutableStateOf(rideOptions[0]) }
@@ -85,24 +120,7 @@ fun RideOptionScreen(navController: NavHostController) {
             )
         }
 
-        Spacer(modifier = Modifier.height(20.dp))
-        Button(
-            onClick = { navController.navigate("home"){
-                popUpTo("home"){inclusive = true}
-            } },
-            modifier = Modifier.fillMaxWidth().height(50.dp),
-            shape = RoundedCornerShape(8.dp),
-            colors = ButtonDefaults.buttonColors(
-                backgroundColor = Color(0xFF665FF0) // Set background color to blue
-            )
-        ) {
-            Text(
-                "Book Now",
-                fontSize = 18.sp,
-                color = Color.White,
-                modifier = Modifier.background(Color(0xFF665FF0))
-            )
-        }
+
     }
 }
 
