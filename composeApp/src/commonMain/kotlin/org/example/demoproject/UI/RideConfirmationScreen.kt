@@ -259,6 +259,17 @@ class RideConfirmationScreen {
             ) {
                 Text(text = "Home", color = Color.White)
             }
+            Button(
+                onClick = {
+                    navController.navigate("activity") {
+                        popUpTo("activity") { inclusive = true }
+                    }
+                },
+                colors = ButtonDefaults.buttonColors(backgroundColor = Color.Green),
+                modifier = Modifier.weight(1f).padding(start = 8.dp)
+            ) {
+                Text(text = "Edit", color = Color.White)
+            }
         }
     }
 
